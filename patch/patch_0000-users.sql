@@ -1,4 +1,4 @@
-﻿\echo 'patch0000'
+\echo 'patch0000'
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
