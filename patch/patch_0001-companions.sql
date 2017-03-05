@@ -11,7 +11,7 @@ create table if not exists companies (
 CREATE TRIGGER update_companies BEFORE UPDATE ON companies FOR EACH ROW EXECUTE PROCEDURE updated();
 ALTER TABLE users ADD COLUMN company_id int REFERENCES companies;
 
-create table if not exists members (
+create table if not exists companions (
     id serial PRIMARY KEY,
     name varchar(40),
     fury real not null check (fury >=-1 AND fury <=1),
@@ -27,7 +27,6 @@ create table if not exists members (
     updated TIMESTAMP default now(),
     created TIMESTAMP default now()
 );
-CREATE TRIGGER update_members BEFORE UPDATE ON members FOR EACH ROW EXECUTE PROCEDURE updated();
-
+CREATE TRIGGER update_companions BEFORE UPDATE ON companions FOR EACH ROW EXECUTE PROCEDURE updated();
 
 insert into db_version values (1);
