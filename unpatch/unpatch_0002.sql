@@ -4,6 +4,6 @@ drop table if exists armors;
 drop table if exists bonuses;
 drop table if exists items;
 
-drop type weapon_kind;
+drop type weapon_type;
 drop type armor_type;
 drop type item_type;
