@@ -4,7 +4,7 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 create table if not exists db_version (
     id serial PRIMARY KEY,
-    items_update TIMESTAMP,
+    items_version TIMESTAMP,
     created TIMESTAMP default now()
 );
 
@@ -20,7 +20,7 @@ create table if not exists users (
     nick VARCHAR(40) not null,
     sex sex_type,
     email VARCHAR(40)  not null UNIQUE,
-    data_update TIMESTAMP default now(),
+    data_version TIMESTAMP default now(),
     updated TIMESTAMP default now(),
     created TIMESTAMP default now()
 );
@@ -53,13 +53,30 @@ $$  LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION check_password(_uname TEXT, _pass TEXT)
 RETURNS BOOLEAN AS $$
-DECLARE passed BOOLEAN;
+DECLARE _passed BOOLEAN;
 BEGIN
-        SELECT  (users.password = hash_password(_pass, salt)) INTO passed
-        FROM    users
-        WHERE   login = _uname OR email = _uname;
+        select  (users.password = hash_password(_pass, salt)) into _passed
+        from    users
+        where   login = _uname or email = _uname;
 
-        RETURN passed;
+	    return _passed;
+END;
+$$  LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION login(_uname TEXT, _pass TEXT)
+RETURNS INTEGER AS $$
+DECLARE _user_id INTEGER;
+BEGIN
+	if check_password(_uname, _pass ) then
+
+	    select  users.id into _user_id
+        from    users
+        where   login = _uname or email = _uname;
+
+		return _user_id;
+	else
+		return 0;
+    end if;
 END;
 $$  LANGUAGE plpgsql;
 
