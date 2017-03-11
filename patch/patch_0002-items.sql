@@ -1,6 +1,6 @@
 \echo 'patch0002'
 
-CREATE TYPE item_type AS ENUM ('weapon', 'armor', 'potion', 'item');
+create type item_type as ENUM ('weapon', 'armor', 'potion', 'item');
 
 create table if not exists items (
     id serial PRIMARY KEY,
@@ -14,7 +14,7 @@ create table if not exists bonuses (
     id serial PRIMARY KEY
 );
 
-CREATE TYPE armor_type AS ENUM ('head', 'shoulders', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet', 'cloak', 'necklace', 'ring');
+create type armor_type as ENUM ('head', 'shoulders', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet', 'cloak', 'necklace', 'ring');
 
 create table if not exists armors (
     item_id int not null REFERENCES items(id),
@@ -23,7 +23,7 @@ create table if not exists armors (
     bonus_id int REFERENCES bonuses(id)
 );
 
-CREATE TYPE weapon_type AS ENUM ('two hand sword', 'one hand sword', 'two hand axe', 'one hand axe', 'two hand mace', 'one hand mace', 'bow', 'slingshot', 'shield');
+create type weapon_type as ENUM ('two hand sword', 'one hand sword', 'two hand axe', 'one hand axe', 'two hand mace', 'one hand mace', 'bow', 'slingshot', 'shield');
 
 create table if not exists weapons (
     item_id int not null REFERENCES items(id),
@@ -32,3 +32,5 @@ create table if not exists weapons (
     armor int,
     bonus_id int REFERENCES bonuses(id)
 );
+
+insert into db_version values (2);

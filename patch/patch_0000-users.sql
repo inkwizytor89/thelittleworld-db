@@ -4,6 +4,7 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 create table if not exists db_version (
     id serial PRIMARY KEY,
+    items_update TIMESTAMP,
     created TIMESTAMP default now()
 );
 
@@ -19,6 +20,7 @@ create table if not exists users (
     nick VARCHAR(40) not null,
     sex sex_type,
     email VARCHAR(40)  not null UNIQUE,
+    data_update TIMESTAMP default now(),
     updated TIMESTAMP default now(),
     created TIMESTAMP default now()
 );

@@ -31,3 +31,5 @@ create table if not exists equipments (
     second_ring integer REFERENCES items(id),
     unique(companion_id)
 );
+
+insert into db_version values (3);
