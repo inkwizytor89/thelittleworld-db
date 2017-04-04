@@ -1,4 +1,5 @@
 @echo off
+SET PGCLIENTENCODING=utf-8
 
 for /f %%f in ('dir /b/o-n unpatch') do (
 	echo %%f
