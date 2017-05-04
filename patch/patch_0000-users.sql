@@ -95,6 +95,7 @@ END;
 $$  LANGUAGE plpgsql;
 
 create table if not exists user_roles (
+  id serial,
   user_id int REFERENCES users NOT NULL,
   role varchar(40) NOT NULL,
   created TIMESTAMP default now(),
